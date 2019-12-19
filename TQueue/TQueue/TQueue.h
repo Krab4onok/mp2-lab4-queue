@@ -1,4 +1,5 @@
 #pragma once
+
 using namespace std;
 
 template<class T>
@@ -16,6 +17,11 @@ public:
 	TQueue(const TQueue<T>& q);                       //конструктор копирования
 	bool Empty();                                     //проверка на пустоту
 	bool Full();                                      //проверка на полноту
-	void Push(T a);                                      //записать в очередь
-	T Pop();                                          //уддалить из очереди
+	void Push(T a);                                   //записать в очередь
+	T Pop();                                          //удалить из очереди
+	int GetMaxSize() { return MaxSize; }
+	int GetTail() { return Tail; };
+	int GetHead() { return Head; };
+	int GetCurSize() { return CurSize; };
+	T Top();
 };

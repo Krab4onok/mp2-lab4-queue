@@ -20,9 +20,9 @@ TQueue<T>::~TQueue()
 template<class T>
 TQueue<T>& TQueue<T>:: operator=(const TQueue<T>& q)
 {
-	if (this != q)
-	{
-		if (MaxSize != q.Maxsize)
+	
+	
+		if (MaxSize != q.MaxSize)
 		{
 			MaxSize = q.MaxSize;
 			delete[] mas;
@@ -44,45 +44,38 @@ TQueue<T>& TQueue<T>:: operator=(const TQueue<T>& q)
 			{
 				mas[i] = q.mas[i];
 			}
-			for (int i = 0; i <= Tail i++)
+			for (int i = 0; i <= Tail ;i++)
 			{
 				mas[i] = q.mas[i];
 			}
 		}
-	}
+	
 	return *this;
 }
 template<class T>
 TQueue<T>::TQueue(const TQueue<T>& q)
 {
-	if (this != q)
+	MaxSize = q.MaxSize;
+	//delete[] mas;
+	mas = new T[MaxSize];
+	Head = q.Head;
+	Tail = q.Tail;
+	if (Tail >= Head)
 	{
-		if (MaxSize != q.Maxsize)
+		for (int i = Head; i <= Tail; i++)
 		{
-			MaxSize = q.MaxSize;
-			delete[] mas;
-			mas = new T[MaxSize];
+			mas[i] = q.mas[i];
 		}
-		CurSize = q.CurSize;
-		Head = q.Head;
-		Tail = q.Tail;
-		if (Tail >= Head)
+	}
+	else
+	{
+		for (int i = Head; i < MaxSize; i++)
 		{
-			for (int i = Head; i <= Tail; i++)
-			{
-				mas[i] = q.mas[i];
-			}
+			mas[i] = q.mas[i];
 		}
-		else
+		for (int i = 0; i <= Tail ; i++)
 		{
-			for (int i = Head; i < MaxSize; i++)
-			{
-				mas[i] = q.mas[i];
-			}
-			for (int i = 0; i <= Tail i++)
-			{
-				mas[i] = q.mas[i];
-			}
+			mas[i] = q.mas[i];
 		}
 	}
 }
@@ -121,6 +114,13 @@ T TQueue<T>::Pop()
 		Head++;
 	}
 	else Head = 0;
-	Cursize--;
+	CurSize--;
+	return mas[pos];
+}
+template<class T>
+T TQueue<T>::Top()
+{
+	if (Empty())throw - 1;
+	int pos = Head;
 	return mas[pos];
 }

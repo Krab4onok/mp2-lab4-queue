@@ -1,7 +1,7 @@
-#include"pch.h"
-#include"../TQueue/TQueue.h"
+#include "pch.h"
 
-TEST(TQueue, can_create_queue) 
+
+TEST(TQueue, can_create_queue)
 {
 	ASSERT_NO_THROW(TQueue<int> s);
 }
@@ -15,7 +15,7 @@ TEST(TQueue, cant_create_queue_with_negative_length)
 }
 TEST(TQueue, can_create_copied_queue)
 {
-	TQueue<int> a;
+	TQueue<int> a(3);
 	ASSERT_NO_THROW(TQueue<int> s(a));
 }
 TEST(TQueue, can_assign_queues)
@@ -29,7 +29,7 @@ TEST(TQueue, assign_operator_change_size)
 	TQueue<int> a(7);
 	TQueue<int> s(9);
 	a = s;
-	EXPECT_EQ(7, a.GetMaxSize());
+	EXPECT_EQ(9, a.GetMaxSize());
 }
 TEST(TQueue, assigned_queues_are_equal)
 {
@@ -83,6 +83,7 @@ TEST(TQueue, cant_push_elem_in_full_queue)
 TEST(TQueue, can_pop_elem_from_not_empty_queue)
 {
 	TQueue<int> a(1);
+	a.Push(1);
 	ASSERT_NO_THROW(a.Pop());
 }
 TEST(TQueue, cant_pop_elem_from_empty_queue)
@@ -100,7 +101,7 @@ TEST(TQueue, method_GetHead_is_correct)
 {
 	TQueue<int> a(10);
 	a.Push(1);
-	int i = a.GetHead;
+	int i = a.GetHead();
 	EXPECT_EQ(i, a.GetHead());
 }
 TEST(TQueue, method_GetTail_is_correct)
@@ -121,41 +122,5 @@ TEST(TQueue, method_Top_is_correct)
 {
 	TQueue<int> a(10);
 	a.Push(1);
-	EXPECT_EQ(a.Top(), a.Pop());
-}
-TEST(TQueue, method_Mem_in_position_is_correct_pos_less_maxsize_more_head)
-{
-	TQueue<int> a(10);
-	for (int i = 0; i < 5; i++)
-	{
-		a.Push(i);
-	}
-	ASSERT_ANY_THROW(a.Mem_in_position(6));
-}
-TEST(TQueue, method_Mem_in_position_is_correct_negative_position)
-{
-	TQueue<int> a(10);
-	for (int i = 0; i < 5; i++)
-	{
-		a.Push(i);
-	}
-	ASSERT_ANY_THROW(a.Mem_in_position(-1));
-}
-TEST(TQueue, method_Mem_in_position_is_correct_too_big_position)
-{
-	TQueue<int> a(10);
-	for (int i = 0; i < 5; i++)
-	{
-		a.Push(i);
-	}
-	ASSERT_ANY_THROW(a.Mem_in_position(11));
-}
-TEST(TQueue, method_Mem_in_position_is_correct_pos_among_head_and_tail)
-{
-	TQueue<int> a(10);
-	for (int i = 0; i < 5; i++)
-	{
-		a.Push(i);
-	}
-	ASSERT_NO_THROW(a.Mem_in_position(3));
+	EXPECT_EQ(a.Pop(), a.Top());
 }
